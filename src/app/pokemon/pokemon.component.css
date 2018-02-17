@@ -1,0 +1,16 @@
+.badge {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+ul.pokemon {
+    list-style-type: none;
+}
+
+ul.pokemon li {
+    cursor: pointer;
+}
+
+.selected {
+    font-weight: bold;
+}
