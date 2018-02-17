@@ -1,8 +1,8 @@
 <h2>
   Pokemon List
 </h2>
-<ul class="pokemon" *ngIf="pokemons">
-  <li *ngFor="let pokemon of pokemons.pokemon_entries">
+<ul class="pokemon" *ngIf="pokedex">
+  <li *ngFor="let pokemon of pokedex.pokemon_entries">
     <a routerLink="/detail/{{pokemon.entry_number}}">
       <span class="badge">{{pokemon.entry_number}}</span> {{pokemon.pokemon_species.name}}
     </a>

@@ -1,8 +1,9 @@
 <h3>Top Pokemon</h3>
-<div *ngIf="pokemons" class="grid grid-pad">
-  <a *ngFor="let pokemon of pokemons.pokemon_entries" class="col-1-4" routerLink="/detail/{{pokemon.entry_number}}">
-    <div class="module pokemon">
-      <h4>{{pokemon.pokemon_species.name}}</h4>
+<div *ngIf="displayEntries" class="grid grid-pad">
+  <a *ngFor="let pokemon of displayEntries" class="col-1-4" routerLink="/detail/{{pokemon.id}}"> <!--todo: pipe sort on pokemon id to fix arbitrary returns-->
+    <div class="module pokemon" [ngClass]="setModuleClass(pokemon.types[0].type.name)">
+      <img [src]="pokemon.sprites.front_default"/>
+      <h4>{{pokemon.name}}</h4>
     </div>
   </a>
 </div>

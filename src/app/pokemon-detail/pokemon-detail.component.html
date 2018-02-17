@@ -1,13 +1,26 @@
 <div *ngIf="pokemon">
-    <h2>{{ pokemon.name | uppercase }} Details</h2>
-    <div><span>Pokedex #: </span>{{pokemon.num}}</div>
-    <div><span>Type: </span>{{pokemon.type1}}</div>
-    <div *ngIf="pokemon.type2 !== ''"><span>Secondary Type: </span>{{pokemon.type2}}</div>
-    <div>
-      <label>name:
-        <input [(ngModel)]="pokemon.name" placeholder="name">
-      </label>
-    </div>
+  <img [src]="pokemon.sprites.front_default"/>
+  <h2>{{ pokemon.name | uppercase }} Details</h2>
+  <div>
+    <span>Pokedex #: </span>{{pokemon.id}}
+  </div>
+  <div>
+    <span>Type (Primary): </span>{{pokemon.types[0].type.name}}
+  </div>
+  <div *ngIf="pokemon.types.length > 1">
+    <span>Type (Secondary): </span>{{pokemon.types[1].type.name}}
+  </div>
+  <div>
+    <span>Abilities: </span>
+    <span *ngFor="let ability of pokemon.abilities; let i = index" class="ability" [ngClass]="{'hidden': ability.is_hidden}">
+        {{ability.ability.name}}{{ability.is_hidden ? '*' : ''}}{{i === pokemon.abilities.length - 1 ? '' : ', '}}
+    </span>
+  </div>
+  <div>
+    <label>name:
+      <input [(ngModel)]="pokemon.name" placeholder="name">
+    </label>
+  </div>
 </div>
 <br>
 <button (click)="goBack()">go back</button>

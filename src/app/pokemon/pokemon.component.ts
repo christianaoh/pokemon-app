@@ -10,7 +10,7 @@ import { Pokedex } from '../pokedex';
 })
 export class PokemonComponent implements OnInit {
 
-  pokemons: Pokedex;
+  pokedex: Pokedex;
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -19,7 +19,7 @@ export class PokemonComponent implements OnInit {
   }
 
   getPokemons(): void {
-    this.pokemonService.cachedDex.subscribe(response => this.pokemons = response);
+    this.pokemonService.getPokedex().subscribe(response => this.pokedex = response);
   }
 
 }

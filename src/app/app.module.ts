@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { CommonModule } from '@angular/common'; //<-- NgClass
 
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
@@ -24,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule
   ],

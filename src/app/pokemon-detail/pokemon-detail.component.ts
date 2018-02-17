@@ -3,6 +3,7 @@ import { Pokemon } from '../pokemon';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PokemonService } from '../pokemon.service';
+import { PokemonEntry } from '../pokedex';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -24,8 +25,14 @@ export class PokemonDetailComponent implements OnInit {
   }
 
   getPokemon(): void {
-    const num = +this.route.snapshot.paramMap.get('num');
-    this.pokemonService.getPokemon(num).subscribe(pokemon => this.pokemon = pokemon);
+    const num = +this.route.snapshot.paramMap.get('entry_number');
+    this.pokemonService.getPokemon(num).subscribe(response => {
+      this.pokemon = response;
+      // if (this.pokemon.types.length > 1) {
+      //   this.pokemon.types.sort((a: Type, b: Type) => {return a.slot - b.slot});
+      //   //sorting for data that returns in a random order
+      // }
+    });
   }
 
   goBack(): void {
