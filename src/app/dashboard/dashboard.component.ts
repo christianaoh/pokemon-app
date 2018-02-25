@@ -3,6 +3,7 @@ import { Pokemon } from '../pokemon';
 import { PokemonService } from '../pokemon.service';
 import { Pokedex, PokemonEntry } from '../pokedex';
 import { MessageService } from '../message.service';
+import {Observable} from 'rxjs/Rx';
  
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,7 @@ export class DashboardComponent implements OnInit {
   pokedex: Pokedex;
   top: PokemonEntry[];
   displayEntries: Pokemon[] = [];
+  loading: boolean = false;
  
   constructor(private pokemonService: PokemonService, private messageService: MessageService) { }
  
@@ -45,18 +47,23 @@ export class DashboardComponent implements OnInit {
   }
  
   getTopPokemon(): void {
+    this.loading = true;
     this.pokemonService.getPokedex()
       .subscribe((response) => {
         this.pokedex = response;
         this.top = Object.assign([], this.pokedex.pokemon_entries);
         this.top = this.top.slice(0, 4);
+        let obs = [];
         console.log('top pokemon', this.top);
         console.log('got pokedex', this.pokedex);
         for (var i = 0; i < this.top.length; i++) {
-          this.pokemonService.getPokemon(this.top[i].entry_number).subscribe(response => {
-            this.displayEntries.push(response);
-          });
+          obs.push(this.pokemonService.getPokemon(this.top[i].entry_number));
         }
+        Observable.forkJoin(obs).subscribe((response:Pokemon[]) => {
+          this.displayEntries = response;
+          this.displayEntries.sort((a,b) => {return a.id - b.id;}); //sort by id because api returns each call at a random time :(
+          this.loading = false;
+        })
         this.messageService.add('Created display entries array');
         console.log('display entries', this.displayEntries);
       });

@@ -12,6 +12,7 @@ import { MessageService } from './message.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     PokemonComponent,
     PokemonDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

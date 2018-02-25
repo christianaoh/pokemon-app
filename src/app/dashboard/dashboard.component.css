@@ -37,9 +37,8 @@
     border-radius: 2px;
   }
   .module:hover {
-    background-color: #EEE;
     cursor: pointer;
-    color: #607d8b;
+    letter-spacing: 3px;
   }
   .grid-pad {
     padding: 10px 0;

@@ -30,7 +30,7 @@ export class PokemonService {
   sortTypes(poke): void {
     if (poke.types.length > 1) {
       poke.types.sort((a: Type, b: Type) => {return a.slot - b.slot});
-      //sorting for data that returns in a random order
+      //sorting for types data that returns in a random order
     }
   }
 

@@ -1,0 +1,10 @@
+.messages {
+    border: 1px solid #777;
+    padding: 30px;
+    height: 250px;
+    width: 400px;
+    overflow-y: scroll;
+    margin: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}
