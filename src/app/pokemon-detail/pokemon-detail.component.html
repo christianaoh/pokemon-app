@@ -1,3 +1,8 @@
+<app-spinner img="../assets/img/pokeball-spinner.gif" *ngIf="loading" class="loading image"></app-spinner>
+<div class="loading message" *ngIf="loading">
+   <h1>Loading, please wait...</h1>
+   <p>(Getting data for your selected pokemon...)</p>
+</div> 
 <div *ngIf="pokemon">
   <img [src]="pokemon.sprites.front_default"/>
   <h2>{{ pokemon.name | uppercase }} Details</h2>

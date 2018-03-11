@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pokemon, Type } from './pokemon';
 import { POKEMONS } from './mock-pokemon';
 import { Observable } from 'rxjs/Observable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
@@ -16,6 +17,8 @@ export class PokemonService {
   public obs: Observable<Pokedex>;
   public entry : PokemonEntry;
   public pokemon: Observable<Pokemon>;
+  public entries: Pokemon[];
+  public top: PokemonEntry[];
 
   getPokemon(id: number): Observable<Pokemon> {
     this.messageService.add('getting data from api for pokemon #' + id + '...');
@@ -50,6 +53,32 @@ export class PokemonService {
       return this.obs;
     };
   };
+
+  getDisplayEntries(): Observable<Pokemon[]> {
+    return new Observable<Pokemon[]>((observer)=>{
+      if(this.entries) {
+        observer.next(this.entries);
+      } else {
+        this.messageService.add('no top pokemon found. getting top pokemon...');
+        this.top = Object.assign([], this.dex.pokemon_entries);
+        this.top = this.top.slice(0,4);
+        let obs = [];
+        console.log('top pokemon', this.top);
+        this.messageService.add('got top pokemon!');
+        for (var i = 0; i < this.top.length; i++) {
+          obs.push(this.getPokemon(this.top[i].entry_number));
+        }
+        forkJoin(obs).subscribe((response:Pokemon[]) => {
+          this.entries = response;
+          this.messageService.add('cached top pokemon!');
+          this.entries.sort((a,b) => {return a.id - b.id;}); //sort by id
+          this.messageService.add('Created display entries array');
+          console.log('display entries', this.entries);
+          observer.next(this.entries);
+        })
+      }
+    })
+  }
 
   private pokemonUrl = 'https://pokeapi.co/api/v2/pokedex/1/'
   constructor(

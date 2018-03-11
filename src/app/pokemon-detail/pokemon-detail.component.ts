@@ -13,6 +13,7 @@ import { PokemonEntry } from '../pokedex';
 export class PokemonDetailComponent implements OnInit {
 
   @Input() pokemon: Pokemon;
+  loading: boolean = true;
   
   constructor(
     private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class PokemonDetailComponent implements OnInit {
     const num = +this.route.snapshot.paramMap.get('entry_number');
     this.pokemonService.getPokemon(num).subscribe(response => {
       this.pokemon = response;
+      this.loading = false;
     });
   }
 
