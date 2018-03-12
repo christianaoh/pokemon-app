@@ -5,20 +5,20 @@
 </div> 
 <div *ngIf="pokemon">
   <img [src]="pokemon.sprites.front_default"/>
-  <h2>{{ pokemon.name | uppercase }} Details</h2>
+  <h2>{{ pokemon.name | uppercase }}</h2>
   <div>
-    <span>Pokedex #: </span>{{pokemon.id}}
+    <span>Pokedex #{{pokemon.id}}</span>
   </div>
   <div>
-    <span>Type (Primary): </span>{{pokemon.types[0].type.name}}
+    <span>Type (Primary): </span>{{pokemon.types[0].type.name | titlecase}}
   </div>
   <div *ngIf="pokemon.types.length > 1">
-    <span>Type (Secondary): </span>{{pokemon.types[1].type.name}}
+    <span>Type (Secondary): </span>{{pokemon.types[1].type.name | titlecase}}
   </div>
   <div>
     <span>Abilities: </span>
     <span *ngFor="let ability of pokemon.abilities; let i = index" class="ability" [ngClass]="{'hidden': ability.is_hidden}">
-        {{ability.ability.name}}{{ability.is_hidden ? '*' : ''}}{{i === pokemon.abilities.length - 1 ? '' : ', '}}
+        {{ability.ability.name | titlecase}}{{ability.is_hidden ? '*' : ''}}{{i === pokemon.abilities.length - 1 ? '' : ', '}}
     </span>
   </div>
   <div>

@@ -44,11 +44,14 @@ export class PokemonService {
     } else if (this.obs) {
       return this.obs;
     } else {
+      console.log('no dex found. getting dex...'); //remove the logs in favor of message service?
       this.messageService.add('no dex found. getting dex...');
       this.obs = this.http.get<Pokedex>(this.pokemonUrl);
       this.obs.subscribe(response => {
         this.messageService.add('cached dex!');
         this.dex = response;
+        console.log('getting the pokedex does not supply complete information. the objects contain properties for the api urls for each individual pokemon, which then need to be hit to obtain detailed data.');
+        console.log('got dex!', this.dex);
       });
       return this.obs;
     };

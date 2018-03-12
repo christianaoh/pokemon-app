@@ -1,10 +1,6 @@
-.badge {
-    font-weight: bold;
-    font-size: 20px;
-}
-
 ul.pokemon {
     list-style-type: none;
+    padding: 0;
 }
 
 ul.pokemon li {
